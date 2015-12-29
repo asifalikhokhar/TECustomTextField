@@ -6,6 +6,10 @@
 //  Copyright © 2015 MobiWhiz. All rights reserved.
 //
 
+#define kTitleOffset 15.0
+#define kImageOffset 5.0
+#define kIconWidth 20.0
+
 #import "TECustomTextField.h"
 
 @implementation TECustomTextField
@@ -13,9 +17,12 @@
 -(void) awakeFromNib {
     [super awakeFromNib];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20, 20)];
+    _iconOffset = _iconOffset == 0 ? kImageOffset : _iconOffset;
+    _titleOffset = _titleOffset == 0 ? kTitleOffset : _titleOffset;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kIconWidth + _titleOffset + _iconOffset, 22)];
     if (_leftIcon) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(_iconOffset, 0, kIconWidth, 20)];
         [imageView setContentMode:UIViewContentModeScaleAspectFit];
         [imageView setImage:_leftIcon];
         [view addSubview:imageView];
@@ -23,7 +30,7 @@
         self.leftViewMode = UITextFieldViewModeAlways;
     }
     if (_rightIcon) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(_iconOffset, 0, kIconWidth, 20)];
         [imageView setContentMode:UIViewContentModeScaleAspectFit];
         [imageView setImage:_rightIcon];
         [view addSubview:imageView];
@@ -35,7 +42,7 @@
 -(void) drawPlaceholderInRect:(CGRect)rect {
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithString:self.placeholder
-                                                                 attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+                                                                 attributes:@{ NSForegroundColorAttributeName : self.placeholderColor != nil ? self.placeholderColor : [UIColor whiteColor] }];
     self.attributedPlaceholder = string;
     [super drawPlaceholderInRect:rect];
 }
