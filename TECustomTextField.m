@@ -39,10 +39,32 @@
     }
 }
 
+-(void) setLeftIcon:(UIImage *)leftIcon {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kIconWidth + _titleOffset + _iconOffset, 22)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(_iconOffset, 0, kIconWidth, 20)];
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [imageView setImage:leftIcon];
+    [view addSubview:imageView];
+    self.leftView = view;
+    self.leftViewMode = UITextFieldViewModeAlways;
+}
+
+-(void) setRightIcon:(UIImage *)rightIcon {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kIconWidth + _titleOffset + _iconOffset, 22)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(_iconOffset, 0, kIconWidth, 20)];
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [imageView setImage:rightIcon];
+    [view addSubview:imageView];
+    self.rightView = view;
+    self.rightViewMode = UITextFieldViewModeAlways;
+}
+
 -(void) drawPlaceholderInRect:(CGRect)rect {
     
     NSAttributedString *string = [[NSAttributedString alloc] initWithString:self.placeholder
-                                                                 attributes:@{ NSForegroundColorAttributeName : self.placeholderColor != nil ? self.placeholderColor : [UIColor whiteColor] }];
+                                                                 attributes:@{ NSForegroundColorAttributeName : self.placeholderColor != nil ? self.placeholderColor : [UIColor lightGrayColor] }];
     self.attributedPlaceholder = string;
     [super drawPlaceholderInRect:rect];
 }
